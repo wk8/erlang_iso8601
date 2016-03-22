@@ -1,3 +1,6 @@
+This repo is a fork of https://github.com/seansawyer/erlang_iso8601, which
+sadly seems unmaintained at this point.
+
 # erlang_iso8601 #
 
 Formats and parses ISO 8601 dates.
@@ -40,5 +43,5 @@ Add 1 hour, 2 minutes and 3 seconds to a datetime tuple:
 * Does not support ordinal dates.
 * Does not support intervals.
 
-See the [open issues](https://github.com/seansawyer/erlang_iso8601/issues)
+See the [open issues](https://github.com/wk8/erlang_iso8601/issues)
 for more info.
