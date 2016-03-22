@@ -1,3 +1,8 @@
+This repo is a fork of https://github.com/seansawyer/erlang_iso8601, which
+sadly seems unmaintained at this point.
+
+[![Build Status](https://travis-ci.org/wk8/erlang_iso8601.svg?branch=master)](https://travis-ci.org/wk8/erlang_iso8601)
+
 # erlang_iso8601 #
 
 Formats and parses ISO 8601 dates.
@@ -6,7 +11,11 @@ Formats and parses ISO 8601 dates.
 
 Add it to your `rebar.config` deps:
 
-    {'iso8601',    ".*",    {git, "git@github.com:seansawyer/erlang_iso8601.git", {tag, "1.1.1"}}}
+    {'iso8601', ".*", {git, "git@github.com:seansawyer/erlang_iso8601.git", {tag, "1.1.1"}}}
+
+Or for `rebar3`:
+
+    {'iso8601', ".*", {git, "git://github.com/seansawyer/erlang_iso8601.git", {tag, "1.1.1"}}}
 
 Format a timestamp or calendar datetime tuple:
 
@@ -36,5 +45,5 @@ Add 1 hour, 2 minutes and 3 seconds to a datetime tuple:
 * Does not support ordinal dates.
 * Does not support intervals.
 
-See the [open issues](https://github.com/seansawyer/erlang_iso8601/issues)
+See the [open issues](https://github.com/wk8/erlang_iso8601/issues)
 for more info.

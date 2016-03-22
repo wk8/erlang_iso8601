@@ -1,2 +1,6 @@
-.eunit
-ebin/*.beam
+/.eunit/
+/ebin/
+/.concrete/
+/.rebar/
+/deps/
+/deps.plt
