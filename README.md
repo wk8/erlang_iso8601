@@ -1,6 +1,8 @@
 This repo is a fork of https://github.com/seansawyer/erlang_iso8601, which
 sadly seems unmaintained at this point.
 
+[![Build Status](https://travis-ci.org/wk8/erlang_iso8601.svg?branch=master)](https://travis-ci.org/wk8/erlang_iso8601)
+
 # erlang_iso8601 #
 
 Formats and parses ISO 8601 dates.
