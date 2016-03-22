@@ -2,7 +2,8 @@
 
 -export([add_time/4,
          format/1,
-         parse/1]).
+         parse/1,
+         parse_exact/1]).
 
 -export_types([timestamp/0]).
 
@@ -39,11 +40,19 @@ format({{Y,Mo,D}, {H,Mn,S}}) ->
     list_to_binary(IsoStr).
 
 -spec parse (string()) -> calendar:datetime().
-%% @doc Convert an ISO 8601 formatted string to a 
-parse(Bin) when is_binary(Bin) ->
-    parse(binary_to_list(Bin));
+%% @doc Convert an ISO 8601 formatted string to a datetime
 parse(Str) ->
-    year(Str, []).
+    {Date, {H, M, S}} = parse_exact(Str),
+    {Date, {H, M, round(S)}}.
+
+-spec parse_exact (string()) -> {calendar:date(), {calendar:hour(), calendar:minute(), float()}}.
+%% @doc Convert an ISO 8601 formatted string to a datetime
+%% with seconds precision to 3 decimal palces
+parse_exact(Bin) when is_binary(Bin) ->
+    parse_exact(binary_to_list(Bin));
+parse_exact(Str) ->
+    {{Date, {H, M, S}}, SecondsDecimal} = year(Str, []),
+    {Date, {H, M, S + SecondsDecimal}}.
 
 %% Private functions
 
@@ -194,8 +203,7 @@ acc_float(FloatStr, Rest, Key, Acc, NextF) ->
 add_decimal(Datetime, Plist) ->
     HDecimal = ?V(hour_decimal, Plist, 0.0),
     MDecimal = ?V(minute_decimal, Plist, 0.0),
-    SDecimal = ?V(second_decimal, Plist, 0.0),
-    apply_offset(Datetime, HDecimal, MDecimal, SDecimal).
+    apply_offset(Datetime, HDecimal, MDecimal, 0.0).
 
 datetime(Plist) ->
     {Date, WeekOffsetH} = make_date(Plist),
@@ -204,7 +212,7 @@ datetime(Plist) ->
     OffsetSign = ?V(offset_sign, Plist, 1),
     OffsetH = -1 * OffsetSign * ?V(offset_hour, Plist, 0),
     OffsetM = -1 * OffsetSign * ?V(offset_minute, Plist, 0),
-    apply_offset(Datetime, WeekOffsetH+OffsetH, OffsetM, 0).
+    { apply_offset(Datetime, WeekOffsetH+OffsetH, OffsetM, 0), ?V(second_decimal, Plist, 0.0) }.
 
 datetime(_, Plist) ->
     datetime(Plist).
